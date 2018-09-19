@@ -40,6 +40,7 @@ void homePosition() {
     distance = ultraSensor.distanceCm();
   }
   motor2.stop();
+  setDownHeight();
 }
 
 //Makeblockをラインの上まで移動させる関数
@@ -48,9 +49,9 @@ void linePosition() {
   float distance = ultraSensor.distanceCm();
   for (int i = 0; i < 20; i++) {
     distance = ultraSensor.distanceCm();
-    //    Serial.println(distance);
     delay(50);
   }
+  //ラインの端に来たらストップ
   while (distance > 18) {
     motor2.run(motorCarSpeed);
     distance = ultraSensor.distanceCm();
@@ -59,7 +60,7 @@ void linePosition() {
   turnCount = 0;
 }
 
-//
+//ライン上を往復させ続ける関数
 void lineTrace() {
   int sensorState = lineFinder.readSensors();
   switch (sensorState)
@@ -93,7 +94,9 @@ void sizeInput() {
         linePosition();
         while (turnCount < 5) {
           lineTrace();
-          Serial.println(turnCount);
+          if(turnCount ==2 || turnCount == 4){
+            upHeight();
+          }
         }
         motor2.stop();
         turnCount = 0;
@@ -103,6 +106,9 @@ void sizeInput() {
         linePosition();
         while (turnCount < 10) {
           lineTrace();
+          if(turnCount ==2 || turnCount == 4 || turnCount == 6){
+            upHeight();
+          }
         }
         motor2.stop();
         turnCount = 0;
@@ -145,7 +151,14 @@ void downHeight() {
 }
 
 void upHeight() {
-  motor4.run(-100);
+  motor4.run(-80);
   delay(200);
   motor4.stop();
 }
+
+void setDownHeight(){
+  motor4.run(100);
+  delay(500);
+  motor4.stop();
+}
+
