@@ -10,7 +10,7 @@ MeLineFollower lineFinder(PORT_8);
 
 uint8_t motorMaxSpeed = 255;
 uint8_t motorSpeed = 255;
-uint8_t motorCarSpeed = 30;
+uint8_t motorCarSpeed = 35;
 
 char inputkey;
 
@@ -40,7 +40,7 @@ void homePosition() {
     distance = ultraSensor.distanceCm();
   }
   motor2.stop();
-  setDownHeight();
+
 }
 
 //Makeblockをラインの上まで移動させる関数
@@ -90,36 +90,53 @@ void sizeInput() {
   if (inputkey != -1) {
     switch (inputkey) {
       case '1':
-        homePosition();
+        //      delay(10000);
         linePosition();
-        while (turnCount < 5) {
+        motor3.run(motorSpeed);
+        while (turnCount < 25) {
           lineTrace();
-          if(turnCount ==2 || turnCount == 4){
+          if (turnCount == 7 || turnCount == 14) {
             upHeight();
           }
         }
+        motor3.stop();
         motor2.stop();
+        delay(10000);
+        homePosition();
+        setDownHeight();
         turnCount = 0;
         break;
       case '2':
-        homePosition();
+        //        delay(14000);
         linePosition();
-        while (turnCount < 10) {
+        motor3.run(150);
+        while (turnCount < 40) {
           lineTrace();
-          if(turnCount ==2 || turnCount == 4 || turnCount == 6){
+          if (turnCount == 7 || turnCount == 14 || turnCount == 18 || turnCount == 22 || turnCount == 27 || turnCount == 33 || turnCount == 36) {
             upHeight();
           }
         }
+        motor3.stop();
         motor2.stop();
+        delay(10000);
+        homePosition();
+        setDownHeight();
         turnCount = 0;
         break;
       case '3':
-        homePosition();
         linePosition();
-        while (turnCount < 15) {
+        motor3.run(motorSpeed);
+        while (turnCount < 45) {
           lineTrace();
+          if (turnCount == 7 || turnCount == 14 || turnCount == 18 || turnCount == 22 || turnCount == 27 || turnCount == 33 || turnCount == 36) {
+            upHeight();
+          }
         }
+        motor3.stop();
         motor2.stop();
+        delay(10000);
+        homePosition();
+        setDownHeight();
         turnCount = 0;
         break;
       default:
@@ -151,12 +168,12 @@ void downHeight() {
 }
 
 void upHeight() {
-  motor4.run(-80);
+  motor4.run(-50);
   delay(200);
   motor4.stop();
 }
 
-void setDownHeight(){
+void setDownHeight() {
   motor4.run(100);
   delay(500);
   motor4.stop();
