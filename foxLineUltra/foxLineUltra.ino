@@ -92,7 +92,7 @@ void sizeInput() {
       case '1':
         //      delay(10000);
         linePosition();
-        motor3.run(motorSpeed);
+        motor3.run(255);
         while (turnCount < 25) {
           lineTrace();
           if (turnCount == 7 || turnCount == 14) {
@@ -125,11 +125,14 @@ void sizeInput() {
         break;
       case '3':
         linePosition();
-        motor3.run(motorSpeed);
-        while (turnCount < 45) {
+        motor3.run(150);
+        while (turnCount < 70) {
           lineTrace();
-          if (turnCount == 7 || turnCount == 14 || turnCount == 18 || turnCount == 22 || turnCount == 27 || turnCount == 33 || turnCount == 36) {
+          if (turnCount == 7 || turnCount == 14 || turnCount == 18 || turnCount == 22 || turnCount == 27 || turnCount == 33 || turnCount == 40 || turnCount == 44) {
             upHeight();
+          }
+          if(turnCount > 15){
+            motor3.run(100);
           }
         }
         motor3.stop();
