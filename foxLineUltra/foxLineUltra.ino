@@ -35,7 +35,7 @@ void homePosition() {
     //    Serial.println(distance);
     delay(50);
   }
-  while (distance < 30) {
+  while (distance < 33) {
     motor2.run(-motorCarSpeed);
     distance = ultraSensor.distanceCm();
   }
@@ -109,10 +109,10 @@ void sizeInput() {
       case '2':
         //        delay(14000);
         linePosition();
-        motor3.run(150);
+        motor3.run(120);
         while (turnCount < 40) {
           lineTrace();
-          if (turnCount == 7 || turnCount == 14 || turnCount == 18 || turnCount == 22 || turnCount == 27 || turnCount == 33 || turnCount == 36) {
+          if (turnCount == 7 || turnCount == 14 || turnCount == 18 || turnCount == 22 || turnCount == 27 || turnCount == 33) {
             upHeight();
           }
         }
@@ -125,13 +125,32 @@ void sizeInput() {
         break;
       case '3':
         linePosition();
-        motor3.run(150);
-        while (turnCount < 70) {
+        motor3.run(130);
+        while (turnCount < 55) {
           lineTrace();
-          if (turnCount == 7 || turnCount == 14 || turnCount == 18 || turnCount == 22 || turnCount == 27 || turnCount == 33 || turnCount == 40 || turnCount == 44) {
+          if (turnCount == 7 || turnCount == 16 || turnCount == 24 || turnCount == 32 || turnCount == 40 || turnCount == 46 || turnCount == 55) {
             upHeight();
           }
-          if(turnCount > 15){
+          if (turnCount > 18) {
+            motor3.run(100);
+          }
+        }
+        motor3.stop();
+        motor2.stop();
+        delay(10000);
+        homePosition();
+        setDownHeight();
+        turnCount = 0;
+        break;
+      case '4':
+        linePosition();
+        motor3.run(120);
+        while (turnCount < 70) {
+          lineTrace();
+          if (turnCount == 7 || turnCount == 16 || turnCount == 24 || turnCount == 32 || turnCount == 40 || turnCount == 46 || turnCount == 55 || turnCount == 62) {
+            upHeight();
+          }
+          if (turnCount > 14) {
             motor3.run(100);
           }
         }
